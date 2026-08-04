@@ -1,6 +1,12 @@
+import platform
+
+
 def system_information():
     print("\n--- System Information ---")
-    print("System information module coming soon...")
+    print(f"Operating System: {platform.system()}")
+    print(f"OS Version: {platform.version()}")
+    print(f"Machine: {platform.machine()}")
+    print(f"Processor: {platform.processor()}")
 
 
 def network_diagnostics():
