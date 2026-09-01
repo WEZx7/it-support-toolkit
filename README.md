@@ -1,6 +1,9 @@
 # IT Support Toolkit
 
 A Python-based command-line toolkit designed to assist with common IT support, troubleshooting, and system diagnostics tasks.
+## Screenshot
+
+![IT Support Toolkit Demo](it-support-toolkit-demo.png)
 
 ## Features
 
