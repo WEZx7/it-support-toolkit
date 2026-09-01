@@ -11,7 +11,6 @@ def system_information():
 
 def network_diagnostics():
     import socket
-    import subprocess
 
     print("\n--- Network Diagnostics ---")
 
@@ -19,7 +18,11 @@ def network_diagnostics():
     print(f"Computer Name: {hostname}")
 
     try:
-        local_ip = socket.gethostbyname(hostname)
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        local_ip = s.getsockname()[0]
+        s.close()
+
         print(f"Local IP Address: {local_ip}")
     except socket.error:
         print("Local IP Address: Unable to determine")
@@ -27,19 +30,16 @@ def network_diagnostics():
     print("\nTesting internet connection...")
 
     try:
-        result = subprocess.run(
-            ["ping", "-c", "1", "8.8.8.8"],
-            capture_output=True,
-            text=True
-        )
+        socket.create_connection(("8.8.8.8", 53), timeout=3)
+        print("Internet Connection: Connected")
+    except OSError:
+        print("Internet Connection: Not Connected")
 
-        if result.returncode == 0:
-            print("Internet Connection: Connected")
-        else:
-            print("Internet Connection: Not Connected")
-
-    except Exception as error:
-        print(f"Ping test failed: {error}")
+    try:
+        dns_ip = socket.gethostbyname("google.com")
+        print(f"DNS Resolution: Working ({dns_ip})")
+    except socket.error:
+        print("DNS Resolution: Failed")
 
 
 def storage_information():
