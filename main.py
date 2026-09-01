@@ -43,8 +43,20 @@ def network_diagnostics():
 
 
 def storage_information():
+    import shutil
+
     print("\n--- Storage Information ---")
-    print("Storage information module coming soon...")
+
+    total, used, free = shutil.disk_usage("/")
+
+    gb = 1024 ** 3
+
+    print(f"Total Storage: {total / gb:.2f} GB")
+    print(f"Used Storage: {used / gb:.2f} GB")
+    print(f"Free Storage: {free / gb:.2f} GB")
+
+    usage_percent = (used / total) * 100
+    print(f"Storage Usage: {usage_percent:.1f}%")
 
 
 def main():
